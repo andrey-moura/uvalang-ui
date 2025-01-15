@@ -18,6 +18,7 @@
 
 #include <uva/lang/ui/app_class.hpp>
 #include <uva/lang/ui/frame_class.hpp>
+#include <uva/lang/ui/dialog_class.hpp>
 
 class uvaui_extension : public uva::lang::extension
 {
@@ -33,9 +34,11 @@ public:
     {
         auto AppClass = uva::lang::app_class::create(interpreter);
         auto FrameClass = uva::lang::frame_class::create(interpreter);
+        auto DialogClass = uva::lang::dialog_class::create(interpreter);
 
         interpreter->load(AppClass);
         interpreter->load(FrameClass);
+        interpreter->load(DialogClass);
     }
 
     virtual void start(uva::lang::interpreter* interpreter) override
