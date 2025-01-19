@@ -5,11 +5,11 @@
 #include <uva/lang/ui/app_class.hpp>
 #include <uva/ui/app.hpp>
 
-class uvalang_ui_app : public uva::lang::ui::app
+class uvalang_ui_app : public uva::ui::app
 {
 public:
     uvalang_ui_app(uva::lang::interpreter* __interpreter, std::shared_ptr<uva::lang::object> __application_instance)
-        : uva::lang::ui::app("uva", "uva"), interpreter(__interpreter)
+        : uva::ui::app("uva", "uva"), interpreter(__interpreter)
     {
         application_instance = __application_instance;
     }
