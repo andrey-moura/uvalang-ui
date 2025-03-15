@@ -73,9 +73,4 @@ public:
     }
 };
 
-extern "C" {
-    andy::lang::extension* create_extension()
-    {
-        return new uvaui_extension();
-    }
-}
+UVA_EXTENSION(uvaui_extension);
