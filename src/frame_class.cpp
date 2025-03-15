@@ -1,18 +1,11 @@
-#include <uva/lang/ui/frame_class.hpp>
-#include <interpreter/interpreter.hpp>
-
-#include <uva/file.hpp>
-#include <uva/ui/frame.hpp>
-
-#include <object.hpp>
-#include <class.hpp>
+#include <andy/ui/frame.hpp>
 
 #include <uva/widgets.hpp>
 #include <uva/xml.hpp>
 
-#include <uva/lang/ui/toplevel_class.hpp>
+#include "toplevel_class.hpp"
 
-std::shared_ptr<uva::lang::structure> uva::lang::frame_class::create(uva::lang::interpreter* interpreter)
+std::shared_ptr<andy::lang::structure> create_frame_class(andy::lang::interpreter* interpreter)
 {
-    return uva::lang::toplevel_class<uva::ui::frame>::create(interpreter, "UI.Frame");
+    return andy::lang::toplevel_class<andy::ui::frame>::create(interpreter, "Frame");
 }

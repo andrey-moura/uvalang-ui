@@ -1,27 +1,23 @@
-#include <lang/lang.hpp>
+#include <andy/lang/api.hpp>
+#include <andy/ui/app.hpp>
 
-#include <interpreter/interpreter.hpp>
-
-#include <uva/lang/ui/app_class.hpp>
-#include <uva/ui/app.hpp>
-
-class uvalang_ui_app : public uva::lang::ui::app
+class uvalang_ui_app : public andy::ui::app
 {
 public:
-    uvalang_ui_app(uva::lang::interpreter* __interpreter, std::shared_ptr<uva::lang::object> __application_instance)
-        : uva::lang::ui::app("uva", "uva"), interpreter(__interpreter)
+    uvalang_ui_app(andy::lang::interpreter* __interpreter, std::shared_ptr<andy::lang::object> __application_instance)
+        : andy::ui::app("uva", "uva"), interpreter(__interpreter)
     {
         application_instance = __application_instance;
     }
 protected:
-    uva::lang::interpreter* interpreter = nullptr;
-    std::shared_ptr<uva::lang::object> application_instance;
+    andy::lang::interpreter* interpreter = nullptr;
+    std::shared_ptr<andy::lang::object> application_instance;
 public:
     virtual void on_init(int argc, char** argv) override
     {
-        auto run_it = application_instance->cls->methods.find("run");
+        auto run_it = application_instance->cls->instance_methods.find("run");
 
-        if(run_it == application_instance->cls->methods.end()) {
+        if(run_it == application_instance->cls->instance_methods.end()) {
             throw std::runtime_error("run method not defined in class Application");
         }
 
@@ -29,12 +25,12 @@ public:
     }
 };
 
-std::shared_ptr<uva::lang::structure> uva::lang::app_class::create(uva::lang::interpreter* interpreter)
+std::shared_ptr<andy::lang::structure> create_app_class(andy::lang::interpreter* interpreter)
 {
-    auto AppClass = std::make_shared<uva::lang::structure>("UI.Application");
+    auto AppClass = std::make_shared<andy::lang::structure>("Application");
 
-    AppClass->methods = {
-        { "new", uva::lang::method("new", uva::lang::method_storage_type::instance_method, {}, [interpreter](std::shared_ptr<uva::lang::object> object, std::vector<std::shared_ptr<uva::lang::object>> params){
+    AppClass->instance_methods = {
+        { "new", andy::lang::method("new", andy::lang::method_storage_type::instance_method, {}, [interpreter](std::shared_ptr<andy::lang::object> object, std::vector<std::shared_ptr<andy::lang::object>> params){
             uvalang_ui_app* app = new uvalang_ui_app(interpreter, object->derived_instance);
             object->set_native_ptr(app);
 

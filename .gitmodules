@@ -1,0 +1,15 @@
+[submodule "modules/andy-ui"]
+	path = modules/andy-ui
+	url = https://www.github.com/andrey-moura/andy-ui
+[submodule "modules/andy-widgets"]
+	path = modules/andy-widgets
+	url = https://www.github.com/andrey-moura/andy-widgets
+[submodule "modules/andy-drawing"]
+	path = modules/andy-drawing
+	url = https://www.github.com/andrey-moura/andy-drawing
+[submodule "modules/binary"]
+	path = modules/binary
+	url = https://www.github.com/andrey-moura/binary
+[submodule "modules/andy"]
+	path = modules/andy
+	url = https://www.github.com/andrey-moura/andy

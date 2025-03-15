@@ -3,21 +3,31 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_CXX_STANDARD 20)
 
-project(uvalang-ui)
+project(andylang-ui)
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+include_directories(include)
 
-uva_library(uva-ui)
-uva_library(uva-drawing)
-uva_library(uva-widgets)
-uva_library(xml)
-uva_library(binary)
+# PIC
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-add_library(uvalang-ui-shared SHARED
+include("${CMAKE_CURRENT_LIST_DIR}/modules/andy/CMakeLists.txt")
+include("${CMAKE_CURRENT_LIST_DIR}/modules/andy/include/uva/xml/CMakeLists.txt") 
+include("${CMAKE_CURRENT_LIST_DIR}/modules/andy-drawing/CMakeLists.txt")
+include("${CMAKE_CURRENT_LIST_DIR}/modules/andy-ui/CMakeLists.txt")
+include("${CMAKE_CURRENT_LIST_DIR}/modules/andy-widgets/CMakeLists.txt")
+include("${CMAKE_CURRENT_LIST_DIR}/modules/binary/CMakeLists.txt")
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+add_library(andylang-ui SHARED
     ${CMAKE_CURRENT_LIST_DIR}/src/ui_extension.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/app_class.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/dialog_class.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/frame_class.cpp
+    $<TARGET_OBJECTS:andy-ui>
+    $<TARGET_OBJECTS:uva-xml>
+    $<TARGET_OBJECTS:uva-drawing>
+    $<TARGET_OBJECTS:uva-widgets>
+    $<TARGET_OBJECTS:uva-binary>
 )
 
-target_link_libraries(uvalang-ui-shared uvaui uva-widgets uva-lang uva-extension uva-console uva-lexer uva-interpreter)
+andy_ui_properties(andylang-ui)
+
+# target_link_options(andylang-ui PRIVATE -static-libgcc -static-libstdc++ -static)
